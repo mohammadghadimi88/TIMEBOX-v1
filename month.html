@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<title>Monthly Planner</title>
+<style>
+    body {
+        font-family: sans-serif;
+        background: #fff3e0; /* Light Orange */
+        margin: 0;
+        padding: 20px;
+        color: #333;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .btn-back {
+        background: #fb8c00;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 6px;
+        text-decoration: none;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        transition: background 0.3s;
+    }
+    .btn-back:hover { background: #ef6c00; }
+    .container { display: flex; gap: 20px; flex-wrap: wrap; }
+    .side, .main {
+        background: white;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .side { flex: 1; min-width: 250px; }
+    .main { flex: 2; min-width: 300px; }
+    h3 { color: #fb8c00; margin-top: 0; }
+    .box { border: 1px solid #ddd; border-radius: 6px; overflow: hidden; margin-bottom: 15px; }
+    .box input { width: 100%; border: none; border-bottom: 1px solid #eee; padding: 8px; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background: #fb8c00; color: white; text-align: center; }
+    td[contenteditable]:hover { background: #fff3e0; }
+</style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="btn-back">⬅ Back</a>
+        <div>Month: <input type="text" placeholder="Month name"></div>
+    </header>
+
+    <div class="container">
+        <div class="side">
+            <h3>Top Priorities</h3>
+            <div class="box">
+                <input type="text"><input type="text"><input type="text">
+            </div>
+            <h3>Brain Dump</h3>
+            <div class="box">
+                <input type="text"><input type="text"><input type="text">
+                <input type="text"><input type="text"><input type="text">
+                <input type="text"><input type="text">
+            </div>
+        </div>
+        <div class="main">
+            <table>
+                <thead><tr><th>Day</th><th>Tasks</th></tr></thead>
+                <tbody>
+                    <script>
+                        for(let d=1; d<=31; d++){
+                            document.write(`<tr>
+                                <td>${d}</td>
+                                <td contenteditable="true"></td>
+                            </tr>`);
+                        }
+                    </script>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+    function saveData() {
+        const inputs = document.querySelectorAll('input, [contenteditable]');
+        let data = {};
+        inputs.forEach((el, i) => data[i] = el.value !== undefined ? el.value : el.innerHTML);
+        localStorage.setItem(location.pathname, JSON.stringify(data));
+    }
+
+    function loadData() {
+        const stored = localStorage.getItem(location.pathname);
+        if(stored) {
+            const inputs = document.querySelectorAll('input, [contenteditable]');
+            const data = JSON.parse(stored);
+            inputs.forEach((el, i) => {
+                if(el.value !== undefined) el.value = data[i] || '';
+                else el.innerHTML = data[i] || '';
+            });
+        }
+    }
+
+    document.addEventListener('input', saveData);
+    window.addEventListener('load', loadData);
+</script>
+
+</body>
+</html>

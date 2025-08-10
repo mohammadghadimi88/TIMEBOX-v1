@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TIMEBOX</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background-color: #f5f5f5;
+    }
+    header {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #333;
+      color: white;
+    }
+    .google-login {
+      background-color: white;
+      color: #333;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 50px);
+      gap: 20px;
+    }
+    .nav-btn {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .nav-btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <button class="google-login" onclick="googleLogin()">Signin Google</button>
+  </header>
+
+  <main>
+    <button class="nav-btn" onclick="goToPage('day.html')">Day</button>
+    <button class="nav-btn" onclick="goToPage('week.html')">Week</button>
+    <button class="nav-btn" onclick="goToPage('month.html')">Month</button>
+  </main>
+
+  <script>
+    function googleLogin() {
+      alert("Login with Google (currently simulated, API will be added later)");
+    }
+
+    function goToPage(page) {
+      window.location.href = page;
+    }
+  </script>
+
+</body>
+</html>
